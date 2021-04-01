@@ -36,7 +36,7 @@ public class HiveSqlSimpleParser extends HiveSqlBaseVisitor {
     // from 表
     private String from_item;
     // where 条件列表
-    private Map<String,Object> where_item = new HashMap<String,Object>();
+    private Map<String,String> where_item = new HashMap<String,String>();
     // group by分组列表
     private List<String> group_by_item = new ArrayList<>();
 
@@ -153,7 +153,7 @@ public class HiveSqlSimpleParser extends HiveSqlBaseVisitor {
             visitBool_expr(ctx.bool_expr(1));
         }else{
             String key = ctx.bool_expr_atom().bool_expr_binary().expr(0).expr_atom().ident().getText();
-            Object value = ctx.bool_expr_atom().bool_expr_binary().expr(1).expr_atom().ident().getText();
+            String value = ctx.bool_expr_atom().bool_expr_binary().expr(1).expr_atom().ident().getText();
             where_item.put(key,value);
         }
 
@@ -161,7 +161,7 @@ public class HiveSqlSimpleParser extends HiveSqlBaseVisitor {
     }
 
 
-    public Map<String,Object> getWhere_item(){
+    public Map<String,String> getWhere_item(){
         return where_item;
     }
 
